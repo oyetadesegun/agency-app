@@ -35,14 +35,14 @@ export default async function ServicesContent() {
 
   return (
     <>
-      <div className="flex items-center justify-between mb-6">
+      <div className="flex items-center justify-between mb-6 py-3 px-5">
         <h2 className="text-xl font-semibold">Choose a Service</h2>
         <p className="text-sm text-gray-600 dark:text-gray-300">
           Pay commission to generate client link
         </p>
       </div>
 
-      <div className="grid md:grid-cols-2 gap-6">
+      <div className="grid md:grid-cols-2 gap-6 px-5">
         {services.map((service) => (
           <ServiceCard
             key={service.id}

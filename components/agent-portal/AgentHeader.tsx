@@ -1,13 +1,13 @@
 // components/agent-portal/AgentHeader.tsx
 import { Button } from "@/components/ui/button"
-import Link from "next/link"
+import Link from 'next/link'
 
 interface AgentHeaderProps {
   agentName: string
   totalCommissions: number
 }
 
-export function AgentHeader({ agentName, totalCommissions }: AgentHeaderProps) {
+export function AgentHeader({ agentName = 'null', totalCommissions  = 1000}: AgentHeaderProps) {
   return (
     <div className="bg-white dark:bg-gray-800 shadow-sm border-b">
       <div className="container mx-auto px-4 py-4">
@@ -19,8 +19,10 @@ export function AgentHeader({ agentName, totalCommissions }: AgentHeaderProps) {
           <div className="flex items-center gap-4">
             <div className="text-right">
               <p className="text-sm text-gray-600 dark:text-gray-300">Total Commissions Paid</p>
-              <p className="text-lg font-bold text-green-600">₦{totalCommissions.toLocaleString()}</p>
+              <p className="text-lg font-bold text-green-600">₦{totalCommissions}</p>
             </div>
+        <Button><Link href='/service/new'>Add New Service</Link></Button>
+
             <Link href="/">
               <Button variant="outline">Back to Home</Button>
             </Link>
