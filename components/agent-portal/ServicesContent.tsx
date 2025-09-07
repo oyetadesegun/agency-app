@@ -1,14 +1,14 @@
 // app/agent-portal/components/ServicesContent.tsx
 import { ServiceCard } from "@/components/agent-portal/ServiceCard"
 import { Agent } from "@/lib/types"
-import { getServices } from "@/zbin/actions/services.actions"
+import { prisma } from "@/prisma/client"
 
 interface ServicesContentProps {
   agent: Agent
 }
 
 export default async function ServicesContent({ agent }: ServicesContentProps) {
-  const services = await getServices() // ✅ works fine in Server Component
+  const services = await  prisma.service.findMany() // ✅ works fine in Server Component
 
   return (
     <>

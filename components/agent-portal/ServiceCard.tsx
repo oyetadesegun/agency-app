@@ -19,16 +19,16 @@ export function ServiceCard({ service, href }: ServiceCardProps) {
       <CardHeader>
         <div className="flex items-center justify-between">
           <Badge variant="outline">{service.category}</Badge>
-          <Badge variant="default">₦{service.commissionAmount.toLocaleString()}</Badge>
+          <Badge variant="default">₦{service.amount}</Badge>
         </div>
-        <CardTitle>{service.name}</CardTitle>
+        <CardTitle>{service.title}</CardTitle>
         <CardDescription>{service.description}</CardDescription>
       </CardHeader>
       <CardContent>
         <div className="space-y-4">
           <div className="flex items-center justify-between text-sm">
             <span className="text-gray-600 dark:text-gray-300">Form Fields:</span>
-            <span className="font-medium">{service.formFields!.length} fields</span>
+            {/* <span className="font-medium">{service.formFields!.length} fields</span> */}
           </div>
           <Button asChild className="w-full">
             <Link href={href}>

@@ -2,14 +2,14 @@
 
 // import {getServices} from "@/zbin/actions/services.actions";
 import { ServiceCard } from "@/components/agent-portal/ServiceCard";
-import { Agent,Service } from "@/lib/types";
+import { Agent, Service } from "@/lib/types";
 import { prisma } from "@/prisma/client";
 
 interface ServicesContentProps {
   agent: Agent;
 }
 
-export default async function ServicesContent({ agent }: ServicesContentProps) {
+export default async function ServicesContent() {
   // Fetch services directly from server action
   const rawServices = await prisma.service.findMany();
   const services: Service[] = rawServices.map((s) => ({
@@ -18,7 +18,7 @@ export default async function ServicesContent({ agent }: ServicesContentProps) {
     description: s.description,
     category: s.category!,
     amount: s.amount,
-  //  formFields: (s.formFields as unknown as FormField[]) ?? [],
+    //  formFields: (s.formFields as unknown as FormField[]) ?? [],
     createdAt: s.createdAt,
     updatedAt: s.updatedAt,
   }));
@@ -43,13 +43,15 @@ export default async function ServicesContent({ agent }: ServicesContentProps) {
       </div>
 
       <div className="grid md:grid-cols-2 gap-6">
-       {services.map((service) => (
-  <ServiceCard
-    key={service.id}
-    service={service}
-    href={`/agent/${agent.id}/payment?serviceId=${service.id}`}
-  />
-))}
+        {services.map((service) => (
+          <ServiceCard
+            key={service.id}
+            service={service}
+            href={`/payment?serviceId=${service.id}`}
+            // href={`/agent/${agent.id}/payment?serviceId=${service.id}`}
+
+          />
+        ))}
 
       </div>
     </>
