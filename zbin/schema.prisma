@@ -1,0 +1,123 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String    @id @default(cuid())
+  email     String    @unique
+  username  String    @unique
+  phone     String    @unique
+  password  String
+  role      Role      @default(USER)
+  status    Boolean   @default(true)
+
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+
+  agent     Agent?
+}
+
+model Agent {
+  id          String       @id @default(cuid())
+  userId      String       @unique
+  user        User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
+
+  clientLinks ClientLink[]
+  commissions Commission[]
+
+  @@map("agents")
+}
+
+model Client {
+  id        String    @id @default(cuid())
+  email     String?   @unique
+  phone     String?   @unique
+  fullName  String?
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+
+  clientLinks ClientLink[]
+  commissions Commission[]
+}
+
+model Service {
+  id               String       @id @default(cuid())
+  name             String
+  description      String
+  category         String
+  commissionAmount Float
+  formFields       Json
+
+  createdAt        DateTime     @default(now())
+  updatedAt        DateTime     @updatedAt
+
+  clientLinks      ClientLink[]
+  commissions      Commission[]
+
+  @@map("services")
+}
+
+model ClientLink {
+  id        String           @id @default(cuid())
+  agentId   String
+  clientId  String?
+  serviceId String
+  link      String           @unique
+  status    ClientLinkStatus @default(ACTIVE)
+
+  createdAt DateTime         @default(now())
+  usedAt    DateTime?
+  updatedAt DateTime         @updatedAt
+
+  agent     Agent            @relation(fields: [agentId], references: [id], onDelete: Cascade)
+  client    Client?          @relation(fields: [clientId], references: [id], onDelete: Cascade)
+  service   Service          @relation(fields: [serviceId], references: [id], onDelete: Cascade)
+
+  @@map("client_links")
+}
+
+model Commission {
+  id               String           @id @default(cuid())
+  agentId          String
+  serviceId        String
+  clientId         String?
+  amount           Float
+  status           CommissionStatus @default(PENDING)
+  paymentReference String?
+
+  createdAt        DateTime         @default(now())
+  updatedAt        DateTime         @updatedAt
+
+  agent            Agent            @relation(fields: [agentId], references: [id], onDelete: Cascade)
+  service          Service          @relation(fields: [serviceId], references: [id], onDelete: Cascade)
+  client           Client?          @relation(fields: [clientId], references: [id], onDelete: Cascade)
+
+  @@map("commissions")
+}
+
+enum Role {
+  ADMIN
+  STAFF
+  AGENT
+  USER
+}
+
+enum CommissionStatus {
+  PENDING
+  PAID
+  CANCELLED
+}
+
+enum ClientLinkStatus {
+  ACTIVE
+  USED
+  EXPIRED
+}

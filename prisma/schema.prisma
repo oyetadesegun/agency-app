@@ -1,0 +1,44 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Service {
+  id          String   @id @default(cuid())
+  title       String @unique
+  description String
+  amount      Float
+  category    String? @default("Uncategorized")  // optional, keep if you need categories
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@map("service") // 👈 ensures table name is lowercase
+}
+
+model User {
+  id         String   @id @default(cuid())
+  username   String   @unique @db.VarChar(11)
+  firstName  String
+  lastName   String
+  email      String   @unique
+  phone      String   @unique
+  password   String
+  role       Role     @default(USER)
+  status     Boolean  @default(true)
+  referredBy String?
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  @@map("user")
+}
+
+enum Role {
+  ADMIN
+  STAFF
+  AGENT
+  USER
+}
