@@ -3,7 +3,7 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
-import { ShoppingCart } from "lucide-react"
+import { DeleteIcon, EditIcon, ShoppingCart, Trash, Trash2 } from "lucide-react"
 // import { Service } from "@/lib/types"
 import Link from "next/link"
 import { Service } from "@prisma/client"
@@ -21,7 +21,13 @@ export function ServiceCard({ service, href }: ServiceCardProps) {
           <Badge variant="outline">{service.category}</Badge>
           <Badge variant="default">₦{service.amount}</Badge>
         </div>
+        <div className="flex items-center justify-between">
         <CardTitle>{service.title}</CardTitle>
+        <div className="flex gap-3">
+          <EditIcon/>
+          <Trash2 color="red"/>
+        </div>
+        </div>
         <CardDescription>{service.description}</CardDescription>
       </CardHeader>
       <CardContent>

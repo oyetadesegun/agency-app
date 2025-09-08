@@ -37,7 +37,7 @@ export default function HistoryContent({ agentId }: HistoryContentProps) {
                   <div>
                     <CardTitle className="text-base flex items-center gap-2">
                       <DollarSign className="w-4 h-4" />
-                      {service?.name}
+                      {service?.title}
                     </CardTitle>
                     <CardDescription>
                       {commission.createdAt.toLocaleDateString()} • Ref: {commission.paymentReference}

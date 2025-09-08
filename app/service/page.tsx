@@ -1,5 +1,5 @@
-import { AgentHeader } from '@/components/agent-portal/AgentHeader'
-import ServicesContent from '@/components/ServicesContent'
+import { AgentHeader } from '@/app/agent/AgentHeader'
+import ServicesContent from '@/app/service/service-component/ServicesContent'
 
 import React from 'react'
 

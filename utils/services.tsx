@@ -1,4 +1,4 @@
-import ServicesGrid from "@/components/ServicesGrid";
+import ServicesGrid from "@/components/LandingPageServicesGrid";
 
 // pages/index.js or your main page component
 

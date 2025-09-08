@@ -176,10 +176,10 @@ export default function PaymentPage() {
           )}
           
           <div className="bg-muted p-4 rounded-lg">
-            <h3 className="font-semibold">{service.name}</h3>
+            <h3 className="font-semibold">{service.title}</h3>
             <p className="text-sm text-muted-foreground">{service.description}</p>
             <p className="text-lg font-bold text-primary mt-2">
-              ₦{service.commissionAmount.toLocaleString()}
+              ₦{service.amount}
             </p>
           </div>
 
@@ -205,12 +205,12 @@ export default function PaymentPage() {
             </Button>
             <PaystackPayment
               email={agent.email}
-              amount={service.commissionAmount}
+              amount={service.amount}
               serviceId={serviceId}
               agentId={agentId}
               onSuccess={handlePaymentSuccess}
               onError={handlePaymentError}
-              disabled={paymentStatus === "processing"}
+              // disabled={paymentStatus === "processing"}
             >
               {paymentStatus === "processing" ? (
                 <>

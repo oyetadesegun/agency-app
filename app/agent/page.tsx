@@ -1,9 +1,9 @@
 // app/agent/[id]/page.tsx
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import ServicesContent from "@/components/ServicesContent"
+import ServicesContent from "@/app/service/service-component/ServicesContent"
 import LinksContent from "@/components/LinkContent"
 import HistoryContent from "@/components/HistoryContent"
-import { AgentHeader } from "@/components/agent-portal/AgentHeader"
+import { AgentHeader } from "@/app/agent/AgentHeader"
 import { getAgentByID } from "@/zbin/actions/agents.actions"
 
 export default async function AgentPortal({ params }: { params: { id: string } }) {

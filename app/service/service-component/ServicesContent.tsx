@@ -1,7 +1,7 @@
 // components/ServicesContent.tsx (Server Component)
 
 // import {getServices} from "@/zbin/actions/services.actions";
-import { ServiceCard } from "@/components/agent-portal/ServiceCard";
+import { ServiceCard } from "@/app/service/service-component/ServiceCard";
 import { Agent, Service } from "@/lib/types";
 import { prisma } from "@/prisma/client";
 

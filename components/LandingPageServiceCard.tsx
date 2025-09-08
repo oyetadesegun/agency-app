@@ -1,5 +1,5 @@
 // components/ServiceCard.js
-export default function ServiceCard({ title, description, color = 'blue' }:{title:string,description:string,color:any  }) {
+export default function LandingPageServiceCard({ title, description, color = 'blue' }:{title:string,description:string,color:any  }) {
   // Color configuration
   const colorConfig = {
     blue: {
