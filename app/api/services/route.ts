@@ -18,6 +18,7 @@ export async function POST(request: NextRequest) {
     const service = await prisma.service.create({
         data: {
             title: body.title,
+            shortDesc: body.shortDesc,
             description: body.description,
             amount: body.amount
         }
@@ -28,4 +29,7 @@ export async function POST(request: NextRequest) {
 export async function GET() {
     const services = await prisma.service.findMany();
     return NextResponse.json(services, { status: 201 })
+}
+export async function PUT(request: NextRequest){
+
 }

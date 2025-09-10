@@ -7,16 +7,17 @@ export interface FormField {
   options?: string[];
 }
 
-export interface Service {
-  id: string;
-  title: string;
-  description: string;
-  category: string;
-  amount: number;
-  // formFields: FormField[];
-  createdAt: Date;
-  updatedAt: Date;
-}
+// export interface Service {
+//   id: string;
+//   title: string;
+//   shortDesc: string;
+//   description: string;
+//   category: string;
+//   amount: number;
+//   // formFields: FormField[];
+//   createdAt: Date;
+//   updatedAt: Date;
+// }
 
 export interface Agent {
   id: string;

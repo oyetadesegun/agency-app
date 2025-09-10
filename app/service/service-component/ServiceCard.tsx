@@ -3,7 +3,7 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
-import { DeleteIcon, EditIcon, ShoppingCart, Trash, Trash2 } from "lucide-react"
+import { EditIcon, ShoppingCart, Trash2 } from "lucide-react"
 // import { Service } from "@/lib/types"
 import Link from "next/link"
 import { Service } from "@prisma/client"
@@ -24,16 +24,16 @@ export function ServiceCard({ service, href }: ServiceCardProps) {
         <div className="flex items-center justify-between">
         <CardTitle>{service.title}</CardTitle>
         <div className="flex gap-3">
-          <EditIcon/>
-          <Trash2 color="red"/>
+          <Link href={`/service/${service.id}/edit`}><EditIcon/></Link>
+          <Link href={`/service/${service.id}/delete`}><Trash2 color="red"/></Link>
         </div>
         </div>
-        <CardDescription>{service.description}</CardDescription>
+        <CardDescription>{service.shortDesc}</CardDescription>
       </CardHeader>
       <CardContent>
         <div className="space-y-4">
           <div className="flex items-center justify-between text-sm">
-            <span className="text-gray-600 dark:text-gray-300">Form Fields:</span>
+            {/* <span className="text-gray-600 dark:text-gray-300">Form Fields:</span> */}
             {/* <span className="font-medium">{service.formFields!.length} fields</span> */}
           </div>
           <Button asChild className="w-full">

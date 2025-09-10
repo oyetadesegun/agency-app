@@ -6,7 +6,7 @@ import React from 'react'
 const ServicePage = () => {
   return (
     <div>
-      <AgentHeader/>
+      <AgentHeader agentName={''} totalCommissions={0}/>
       <ServicesContent/>
     </div>
   )

@@ -9,10 +9,11 @@ datasource db {
 
 model Service {
   id          String   @id @default(cuid())
-  title       String @unique
+  title       String   @unique
+  shortDesc   String @default("Short Description")
   description String
   amount      Float
-  category    String? @default("Uncategorized")  // optional, keep if you need categories
+  category    String?  @default("Uncategorized") // optional, keep if you need categories
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 

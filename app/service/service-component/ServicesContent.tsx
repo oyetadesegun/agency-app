@@ -1,20 +1,13 @@
-// components/ServicesContent.tsx (Server Component)
-
-// import {getServices} from "@/zbin/actions/services.actions";
 import { ServiceCard } from "@/app/service/service-component/ServiceCard";
-import { Agent, Service } from "@/lib/types";
 import { prisma } from "@/prisma/client";
-
-interface ServicesContentProps {
-  agent: Agent;
-}
-
+import { Service } from "@prisma/client";
 export default async function ServicesContent() {
   // Fetch services directly from server action
   const rawServices = await prisma.service.findMany();
   const services: Service[] = rawServices.map((s) => ({
     id: s.id,
     title: s.title,
+    shortDesc: s.shortDesc,
     description: s.description,
     category: s.category!,
     amount: s.amount,
@@ -41,18 +34,17 @@ export default async function ServicesContent() {
           Pay commission to generate client link
         </p>
       </div>
-
+      
       <div className="grid md:grid-cols-2 gap-6 px-5">
         {services.map((service) => (
           <ServiceCard
             key={service.id}
             service={service}
-            href={`/payment?serviceId=${service.id}`}
-            // href={`/agent/${agent.id}/payment?serviceId=${service.id}`}
+            href={`/service/${service.id}`}
+            // href={`/payment?serviceId=${service.id}`}
 
           />
         ))}
-
       </div>
     </>
   );
