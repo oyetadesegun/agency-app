@@ -1,6 +1,6 @@
 // app/service/[id]/edit/page.tsx
 import { prisma } from "@/prisma/client"
-import ServiceForm from "@/components/ServiceForm"
+import ServiceForm from "@/app/service/service-component/ServiceForm"
 
 interface EditServicePageProps {
   params: { id: string }

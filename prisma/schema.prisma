@@ -8,33 +8,67 @@ datasource db {
 }
 
 model Service {
-  id          String   @id @default(cuid())
-  title       String   @unique
-  shortDesc   String @default("Short Description")
+  id          String             @id @default(cuid())
+  title       String             @unique
+  shortDesc   String             @default("Short Description")
   description String
   amount      Float
-  category    String?  @default("Uncategorized") // optional, keep if you need categories
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  forms       ClientForm[]
+  fields      ServiceFormField[]
+  category    String?            @default("Uncategorized")
+  createdAt   DateTime           @default(now())
+  updatedAt   DateTime           @updatedAt
 
-  @@map("service") // 👈 ensures table name is lowercase
+  @@map("service")
+}
+
+model ServiceFormField {
+  id         String    @id @default(cuid())
+  serviceId  String
+  service    Service   @relation(fields: [serviceId], references: [id])
+  label      String
+  type       String    // e.g., "text", "number", "email", "textarea"
+  required   Boolean   @default(true)
+  order      Int       @default(0)
+}
+
+model ClientForm {
+  id         String    @id @default(cuid())
+  serviceId  String
+  service    Service   @relation(fields: [serviceId], references: [id])
+  email      String
+  otp        String    // unique OTP for that service + client
+  isVerified Boolean   @default(false)
+  formData   Json?
+  createdAt  DateTime  @default(now())
+  verifiedAt DateTime?
 }
 
 model User {
-  id         String   @id @default(cuid())
-  username   String   @unique @db.VarChar(11)
-  firstName  String
-  lastName   String
-  email      String   @unique
-  phone      String   @unique
-  password   String
-  role       Role     @default(USER)
-  status     Boolean  @default(true)
-  referredBy String?
-  createdAt  DateTime @default(now())
-  updatedAt  DateTime @updatedAt
+  id                  String               @id @default(cuid())
+  username            String               @unique @db.VarChar(11)
+  firstName           String
+  lastName            String
+  email               String               @unique
+  phone               String               @unique
+  password            String
+  role                Role                 @default(USER)
+  status              Boolean              @default(true)
+  referredBy          String?
+  createdAt           DateTime             @default(now())
+  updatedAt           DateTime             @updatedAt
+  passwordResetTokens PasswordResetToken[]
 
   @@map("user")
+}
+
+model PasswordResetToken {
+  id        String   @id @default(uuid())
+  token     String   @unique
+  user      User     @relation(fields: [userId], references: [id])
+  userId    String
+  expiresAt DateTime
+  createdAt DateTime @default(now())
 }
 
 enum Role {
